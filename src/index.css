@@ -165,11 +165,18 @@ section{
 
 #tool-bar select{
   margin: 10px 20px;
+  
 }
 
 #tool-bar i{
-  margin: auto 10px;
+  padding: 14px 14px;
+  margin: 0 2px;
 }
+
+#tool-bar i:hover{
+  background-color: #46324b3c;
+}
+
 
 #active-pane{
   height:100%;
@@ -180,7 +187,6 @@ textarea{
   width: calc(100% - 20px);
   height: calc(100% - 162px);
   resize: none;
-  border: lightgray;
   font-size: 12pt;
   overflow: scroll;
 }
