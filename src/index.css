@@ -75,16 +75,26 @@ section{
   color: white;
 }
 
-
+#tab-notes{
+  max-height: 90%;
+  overflow: scroll;
+}
 
 .tab-note{
   border-bottom: 1px solid black;
+  padding-top: 15px;
   padding-left: 15px;
+
+}
+
+.tab-note.active{
+  background-color: #46324B;
+  color:rgb(255, 255, 255);
 }
 
 .tab-note h6{
   font-size: 12pt;
-  margin: 15px 0 0 0;
+  margin: 0;
 }
 
 .date{
@@ -105,9 +115,8 @@ section{
 }
 
 #empty-pane{
-  display: none;
   text-align: center;
-  margin: auto;
+  margin: auto 0;
   font-size: 25pt;
   color: darkgray;
 }

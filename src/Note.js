@@ -1,20 +1,50 @@
-function NotePane(){
+import { useState } from "react";
+
+function NotePane({activeNote, onSaveNote, onDeleteNote}){
+    
+    const [title, setTitle] = useState("");
+
+    const titleChange = (e) => {
+        setTitle(e.target.value);
+    }
+
+    const onSave = () => {
+        onSaveNote({
+            id: activeNote.id,
+            title: document.getElementsByClassName("note-title")[0].value,
+            body: document.getElementById("body-text").value,
+            lastModified: new Date().toLocaleString()
+        });
+    };
+
+    const onDelete = () => {
+        onDeleteNote(activeNote.id);
+    };
+
+    if (!activeNote) { 
+        return(
+            <div id="note-space">
+                <div id="empty-pane">
+                    <p>Select a note, or create a new one.</p>
+                </div>
+            </div>
+        );
+    }
+
+
     return(
         <div id="note-space">
-            <div id="empty-pane">
-                <p>Select a note, or create a new one.</p>
-            </div>
             <div id="active-pane">
                 <div id="note-header-bar">
                     <div id="note-header-pane-container">
-                        <input type="text" class="note-title" autoFocus></input>
+                        <input type="text" class="note-title" autoFocus onChange={titleChange} value={title}></input>
                         <div id="note-date">
-                            <p id="date-time">YYYY-MM-DD, HH:MM:SS PM</p>
+                            <p id="date-time">{activeNote.lastModified}</p>
                             <i class="fa-regular fa-calendar"></i>
                         </div>
                     </div>
-                    <p class="clickable">Save</p>
-                    <p class="clickable">Delete</p>
+                    <p class="clickable" onClick={() => onSave()}>Save</p>
+                    <p class="clickable" onClick={() => onDelete()}>Delete</p>
                 </div>
                 <div id="tool-bar">
                     <select>
@@ -30,7 +60,7 @@ function NotePane(){
                     <i class="fa-sharp fa-solid fa-list-ol"></i>
                     <i class="fa-sharp fa-solid fa-text-slash"></i>
                 </div>
-                <textarea></textarea>
+                <textarea id="body-text"></textarea>
             </div>
             
         </div>
