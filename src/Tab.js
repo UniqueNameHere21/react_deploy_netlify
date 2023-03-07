@@ -12,7 +12,7 @@ function MenuTab({notes, onAddNote, activeNote, setActiveNote}){
             <div id="tab-notes">
                 {sortedNotes.map((note) => (
                     <div className={`tab-note ${note.id === activeNote && "active"}`}              
-                    onClick={() => setActiveNote(note.id)}>
+                    onClick={() => {setActiveNote(note.id)}}>
                         <h6>{note.title}</h6>
                         <p class="date">{note.lastModified}</p>
                         <p class="preview">{note.body && note.body.substr(0,100) + "..."}</p>

@@ -21,6 +21,7 @@ function App() {
     setNotes([newNote, ...notes]);
   };
 
+
   const onSaveNote = (savedNote) => {
     const updatedNotesArray = notes.map((note) =>{
       if(note.id === activeNote){

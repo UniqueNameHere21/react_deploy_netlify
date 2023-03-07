@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function NotePane({activeNote, onSaveNote, onDeleteNote}){
     
@@ -6,6 +6,7 @@ function NotePane({activeNote, onSaveNote, onDeleteNote}){
 
     const titleChange = (e) => {
         setTitle(e.target.value);
+        console.log("FYAS");
     }
 
     const onSave = () => {
@@ -20,7 +21,16 @@ function NotePane({activeNote, onSaveNote, onDeleteNote}){
     const onDelete = () => {
         onDeleteNote(activeNote.id);
     };
-
+        
+    useEffect(() => {
+        if(activeNote){
+            document.getElementsByClassName("note-title")[0].value = activeNote.title;
+            document.getElementById("body-text").value = activeNote.body;
+            
+        }
+      }, [activeNote]);
+    
+    
     if (!activeNote) { 
         return(
             <div id="note-space">
