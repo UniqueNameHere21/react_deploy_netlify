@@ -33,13 +33,14 @@ function App() {
     console.log(notes);
   };
 
-  const onDeleteNote = (id) => { //TO IMPLEMENT ----------
+  const onDeleteNote = (id) => {
     setNotes(notes.filter((note) => note.id !== id));
   };
 
   const getActiveNote = () => {
       return notes.find((note) => note.id === activeNote);
   };
+
 
   return (
     <div id="page">

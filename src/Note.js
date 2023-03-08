@@ -1,21 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef} from "react";
+import ReactQuill, { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function NotePane({activeNote, onSaveNote, onDeleteNote}){
     
     const [title, setTitle] = useState("");
+    const quillRef = useRef();
 
     const titleChange = (e) => {
         setTitle(e.target.value);
-        console.log("FYAS");
     }
 
     const onSave = () => {
         onSaveNote({
             id: activeNote.id,
             title: document.getElementsByClassName("note-title")[0].value,
-            body: document.getElementById("body-text").value,
+            body: quillRef.current.getEditor().getText(),
             lastModified: new Date().toLocaleString()
         });
+        console.log(activeNote);
     };
 
     const onDelete = () => {
@@ -25,7 +28,7 @@ function NotePane({activeNote, onSaveNote, onDeleteNote}){
     useEffect(() => {
         if(activeNote){
             document.getElementsByClassName("note-title")[0].value = activeNote.title;
-            document.getElementById("body-text").value = activeNote.body;
+            quillRef.current.getEditor().setText(activeNote.body);
             
         }
       }, [activeNote]);
@@ -39,7 +42,7 @@ function NotePane({activeNote, onSaveNote, onDeleteNote}){
                 </div>
             </div>
         );
-    }
+    }    
 
 
     return(
@@ -56,7 +59,7 @@ function NotePane({activeNote, onSaveNote, onDeleteNote}){
                     <p class="clickable" onClick={() => onSave()}>Save</p>
                     <p class="clickable" onClick={() => onDelete()}>Delete</p>
                 </div>
-                <div id="tool-bar">
+                {/* <div id="tool-bar">
                     <select>
                         <option>Normal</option>
                         <option>font 1</option>
@@ -69,10 +72,9 @@ function NotePane({activeNote, onSaveNote, onDeleteNote}){
                     <i class="fa-sharp fa-solid fa-list"></i>
                     <i class="fa-sharp fa-solid fa-list-ol"></i>
                     <i class="fa-sharp fa-solid fa-text-slash"></i>
-                </div>
-                <textarea id="body-text"></textarea>
+                </div> */}
+                <div id="body-text"><ReactQuill id="text-box" ref={quillRef}/></div>
             </div>
-            
         </div>
     );
 }
