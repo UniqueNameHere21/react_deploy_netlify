@@ -76,7 +76,7 @@ section{
 }
 
 #tab-notes{
-  max-height: 90%;
+  max-height: calc(100% - 75px);
   overflow: scroll;
 }
 
