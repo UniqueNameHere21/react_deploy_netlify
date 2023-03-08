@@ -9,11 +9,13 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [activeNote, setActiveNote] = useState(false);
 
-useEffect(() =>{
-  if(localStorage.getItem('notes')){
-    setNotes(JSON.parse(localStorage.getItem('notes')));
-  }
-}, []);
+  useEffect(() =>{
+    if(localStorage.getItem('notes')){
+      setNotes(JSON.parse(localStorage.getItem('notes')));
+      console.log("LOADED");
+    }
+  }, []);
+
 
   const onAddNote = () => {
 
@@ -25,7 +27,7 @@ useEffect(() =>{
     }
 
     setNotes([newNote, ...notes]);
-    localStorage.setItem('notes', JSON.stringify(notes));
+    localStorage.setItem('notes', JSON.stringify([newNote, ...notes]));
   };
 
 
@@ -43,15 +45,16 @@ useEffect(() =>{
 
   const onDeleteNote = (id) => {
     var x = window.confirm("Are you sure you want to delete.\nThis action cannot be undone");
+
     if(x){
       setNotes(notes.filter((note) => note.id !== id));
-      localStorage.setItem('notes', JSON.stringify(notes));
+      localStorage.setItem('notes', JSON.stringify((notes.filter((note) => note.id !== id))));
     }
-    
   };
 
   const getActiveNote = () => {
       return notes.find((note) => note.id === activeNote);
+      
   };
 
   return (

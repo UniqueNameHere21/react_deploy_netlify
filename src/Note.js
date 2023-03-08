@@ -28,6 +28,7 @@ function NotePane({activeNote, onSaveNote, onDeleteNote}){
         
     useEffect(() => {
         if(activeNote){
+            
             document.getElementsByClassName("note-title")[0].value = activeNote.title;
             quillRef.current.getEditor().setText(activeNote.body);
         }
