@@ -1,13 +1,19 @@
 import MenuTab from "./Tab.js";
 import NotePane from "./Note.js";
 import Header from "./PageHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 
 function App() {
-
+  
   const [notes, setNotes] = useState([]);
   const [activeNote, setActiveNote] = useState(false);
+
+useEffect(() =>{
+  if(localStorage.getItem('notes')){
+    setNotes(JSON.parse(localStorage.getItem('notes')));
+  }
+}, []);
 
   const onAddNote = () => {
 
@@ -19,6 +25,7 @@ function App() {
     }
 
     setNotes([newNote, ...notes]);
+    localStorage.setItem('notes', JSON.stringify(notes));
   };
 
 
@@ -31,16 +38,21 @@ function App() {
     });
     setNotes(updatedNotesArray);
     console.log(notes);
+    localStorage.setItem('notes', JSON.stringify(notes));
   };
 
   const onDeleteNote = (id) => {
-    setNotes(notes.filter((note) => note.id !== id));
+    var x = window.confirm("Are you sure you want to delete.\nThis action cannot be undone");
+    if(x){
+      setNotes(notes.filter((note) => note.id !== id));
+      localStorage.setItem('notes', JSON.stringify(notes));
+    }
+    
   };
 
   const getActiveNote = () => {
       return notes.find((note) => note.id === activeNote);
   };
-
 
   return (
     <div id="page">
